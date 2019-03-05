@@ -15,6 +15,10 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -57,6 +61,17 @@ public class CertFicatesServiceImpl implements CertFicatesService {
         }
         return null;
     }
+
+    @Override
+    public String decryptCertSN(String associatedData, String nonce, String cipherText, String apiv3Key) throws Exception{
+        final Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding", "SunJCE");
+        SecretKeySpec key = new SecretKeySpec(apiv3Key.getBytes(), "AES");
+        GCMParameterSpec spec = new GCMParameterSpec(128, nonce.getBytes());
+        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+        cipher.updateAAD(associatedData.getBytes());
+        return new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)));
+    }
+
     /**
      * map对象转xml
      *
