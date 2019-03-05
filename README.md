@@ -7,7 +7,3 @@ https://www.ccode.live/bertonlee/list
 #### ----------- >upload  ----  图片上传
 #### ----------- >getcertficates  ----  平台序列号获取
 #### ----------- >decryptCertSN  ----  平台序列号解密和敏感词加密
-## 小微商户Demo
-### com.li.getcertficates - - - - - > 平台序列号
-### com.li.upload - - - - - > 图片上传
-### com.li.utils - - - - - > 工具包
